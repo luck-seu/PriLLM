@@ -1,4 +1,6 @@
 # PriLLM
 AAAI 2026
 
-Extended version of the paper: Coming soon.
+## Extended version
+
+An extended version with full technical appendices will be made available on arXiv.
