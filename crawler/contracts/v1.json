@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "site": "https://openrouter.ai",
+  "policy": {
+    "publish_on_warning": true,
+    "publish_on_error": false,
+    "semantic_remapping": "human_review"
+  },
+  "sources": {
+    "model_daily": {
+      "path": "/api/frontend/v1/rankings/models?view=day",
+      "minimum_rows": 20,
+      "required_row_fields": ["model_permaslug", "total_tokens"]
+    },
+    "model_chart": {
+      "path": "/api/frontend/v1/rankings/model-rankings-chart",
+      "minimum_points": 20,
+      "grain": "week"
+    },
+    "task_spend": {
+      "path": "/api/frontend/v1/rankings/task-spend",
+      "minimum_tasks": 10,
+      "window": "current payload"
+    },
+    "marketplace": {
+      "path": "/api/frontend/v1/apps/marketplace/marketplace",
+      "global_periods": ["day", "week", "month"],
+      "minimum_global_rows": 40
+    },
+    "app_category": {
+      "path": "/api/frontend/v1/apps/marketplace/category",
+      "groups": ["coding", "productivity", "creative", "entertainment"],
+      "periods": ["day", "week"]
+    },
+    "app_category_chart": {
+      "path": "/api/frontend/v1/apps/marketplace/category-chart",
+      "minimum_points": 20,
+      "grain": "week"
+    },
+    "catalog": {
+      "path": "/api/frontend/v1/catalog/models",
+      "minimum_rows": 100
+    },
+    "app_detail": {
+      "path": "/apps/{slug}",
+      "selection": "global day top 40 union each group/period top 10",
+      "minimum_success_ratio": 0.8
+    }
+  },
+  "known_semantic_changes": [
+    {
+      "concept": "legacy model categories",
+      "old_values": [
+        "roleplay",
+        "marketing",
+        "marketing/seo",
+        "technology",
+        "science",
+        "translation",
+        "legal",
+        "finance",
+        "health",
+        "trivia",
+        "academia",
+        "programming"
+      ],
+      "status": "not exposed as a distinct current cube",
+      "replacement": null
+    }
+  ]
+}
+
